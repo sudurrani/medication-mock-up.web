@@ -1,0 +1,14 @@
+<div class="feature-header justify-content-between align-items-center">
+    <div class="start">
+      <div class="title" routerLink="{{url}}" style="cursor: pointer;">
+        <mat-icon *ngIf="icon" class="feature-icon mr-3">
+          {{ icon }}
+        </mat-icon> <h4 style="padding-top: 16px;">{{text}}</h4>
+        <ng-content select="h2"></ng-content>
+      </div>
+
+      <ng-content select="p"></ng-content>
+    </div>
+
+    <ng-content select=".action"></ng-content>
+  </div>

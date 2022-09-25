@@ -1,0 +1,89 @@
+<app-page-header icon="home" url="/home" text="Home">
+</app-page-header>
+<div class="container-fluid">
+    <mat-card>
+        <mat-card-content>
+            <div class="ms-1 me-1 gx-5 gy-3">
+                <div>
+                    <form [formGroup]="formGroup" class="form">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12  mb-3">
+
+                                <mat-form-field class="form-element">
+                                    <input matInput placeholder="Name" formControlName="name" appearance="fill">
+                                    <mat-error *ngIf="!formGroup.controls['name'].valid && formGroup.controls['name'].touched">
+                                        {{ getNameError() }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12  mb-3">
+                                <div class="form-element">
+                                    <button mat-raised-button color="primary" type="submit" class="button"
+                                        [disabled]="!formGroup.valid"
+                                        (click)="save()">
+                                        <mat-icon class="mr-2">save</mat-icon>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- <form [formGroup]="formGroup">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12  mb-3">
+                            <label for="Name" class="form-label">Name</label>
+                            <input type="hidden" class="form-control form-control-lg" id="id" formControlName="id" />
+                            <input type="text" class="form-control form-control-lg" id="name" formControlName="name" />
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <button mat-flat-button color="primary" class="action" style="margin-top: 32px;"
+                                (click)="save()">
+                                <mat-icon class="mr-2">save</mat-icon>
+                                <span>Save</span>
+                            </button>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <button *ngIf="this.formGroup.value.id != 0" mat-flat-button color="warn" class="action"
+                                style="margin-top: 32px;" (click)="delete()">
+                                <mat-icon class="mr-2">delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form> -->
+                <!-- <div class="row">
+
+
+                </div> -->
+            </div>
+
+        </mat-card-content>
+        <!-- <mat-card-actions>
+            <div class="row mb-5">
+
+
+            </div>
+        </mat-card-actions> -->
+    </mat-card>
+    <mat-card class="mt-1">
+        <mat-card-content>
+            <mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header hidden> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let row" hidden> {{row.id}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getById(row.id)">
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[100, 200, 500, 1000]"></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

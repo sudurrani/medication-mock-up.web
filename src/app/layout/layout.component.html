@@ -1,0 +1,19 @@
+
+<div>
+  <div *ngIf="_loaderService.isLoading | async" class="loader-container">    
+       <mat-spinner style="top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"></mat-spinner>                              
+  </div>
+    <app-header (menuToggled)="toggle()"></app-header>
+   
+    <mat-drawer-container>
+      
+      <mat-drawer mode="side" [opened]="opened">
+        <app-menu-item [menu]="menu"></app-menu-item>
+      </mat-drawer>
+
+      <mat-drawer-content [class.margin-left]="opened" style="background-color: whitesmoke;padding-bottom:5px">
+        
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>

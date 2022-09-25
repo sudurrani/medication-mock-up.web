@@ -1,0 +1,25 @@
+<div class="carousel-container" *ngIf="images && images.length> 0">
+  <img *ngFor="let image of images; let i=index"
+       [src]="image.imageSrc" [alt]="image.imageAlt"
+       [ngClass]="{'image-active': selectedIndex === i}"
+       class="fades" />
+
+  <div *ngIf="indicators" class="carousel-dot-container">
+    <span *ngFor="let dot of images; let i=index" class="dot"
+          [ngClass]="{'active':selectedIndex === i}"
+          (click)="selectImage(i)">
+    </span>
+  </div>
+  <!--below code will display left right button on middle of image-->
+  <!--<button *ngIf="controls"
+          (click)="onPrevCLick()"
+          class="btn-carousel btn-prev">
+    <i class="fa fa-arrow-circle-left icon-carousel icon-prev"></i>
+  </button>
+  <button *ngIf="controls"
+          (click)="onNextClick()"
+          class="btn-carousel btn-next">
+    <i class="fa fa-arrow-circle-right icon-carousel icon-next"></i>
+  </button>-->
+</div>
+

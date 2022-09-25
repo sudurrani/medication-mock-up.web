@@ -1,0 +1,105 @@
+<div *ngIf="_loaderService.isLoading | async" class="loader-container">
+  <!--<mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+  <mat-spinner style="top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"></mat-spinner>
+
+
+
+</div>
+
+<div class="container-fluid" style="background-color: #dbd9d9; height: 100vh; overflow-x: hidden; position: relative;">
+  <div class="row header-div" style="background-color: #dbd9d9;">
+
+  </div>
+
+  <div class="row login-area">
+    <div class=" col-xl-8 col-lg-7 col-md-6" style="margin-top:85px;">
+      <app-carousel [images]="images"
+                    [autoSlide]="true"
+                    [slideInterval]="5000"></app-carousel>
+    </div>
+    <div class=" col-xl-4 col-lg-5 col-md-6 col-sm-12 col-xs-12" style="background-color:transparent;">
+      <mat-card>
+        <div class="row">
+          <div [ngClass]="isSuccess == true ? 'alert alert-success' : 'alert alert-warning'" role="alert" [hidden]="isHidden">
+            <div *ngFor="let error of errorsArray; let i = index">
+              {{error}}
+            </div>
+          </div>
+        </div>
+        <mat-card-header class="d-flex aligns-items-center justify-content-center">
+          <mat-card-title class="arplace-card-title ">Welcome back!</mat-card-title>
+          <!--<mat-card-subtitle>Start</mat-card-subtitle>-->
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row ms-1 me-1 gx-5 gy-3">
+            <form [formGroup]="loginFormGroup" class="form">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3 mt-5">
+
+                  <mat-form-field class="form-element">
+                    <input matInput placeholder="Display Name" formControlName="displayName" appearance="fill">
+                    <mat-error *ngIf="!loginFormGroup.controls['displayName'].valid && loginFormGroup.controls['displayName'].touched">
+                      {{ getDisplayNameError() }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3 mt-3">
+
+                  <mat-form-field class="form-element">
+                    <input matInput placeholder="Username" formControlName="userName" appearance="fill">
+                    <mat-error *ngIf="!loginFormGroup.controls['userName'].valid && loginFormGroup.controls['userName'].touched">
+                      {{ getUserNameError() }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3 mt-3">
+
+                  <mat-form-field class="form-element">
+                    <input matInput type="password" placeholder="Password" formControlName="password" appearance="fill">
+                    <mat-error *ngIf="!loginFormGroup.controls['password'].valid && loginFormGroup.controls['password'].touched">
+                      {{ getPasswordError() }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div class="row">
+
+
+              </div>
+              <div class="row    mb-3 mt-4">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <button mat-raised-button color="primary" type="submit" class="button"
+                          [disabled]="!loginFormGroup.valid"
+                          (click)="signUp();">
+                    <mat-icon class="mr-2">save</mat-icon>
+                    <span>Save</span>
+                  </button>
+                </div>
+
+              </div>
+              <div class="row    mb-3 mt-4">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">                  
+                  <button type="button" class="btn btn-success container-fluid"  routerLink="/user-login">
+
+                    <span>Back to login</span>
+                  </button>
+                </div>
+                </div>
+            </form>
+
+          </div><!--//row-->
+
+        </mat-card-content>
+        <mat-card-actions>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+  
+</div>
+

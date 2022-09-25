@@ -1,0 +1,175 @@
+<div *ngIf="_loaderService.isLoading | async" class="loader-container">
+  <!--<mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+  <mat-spinner style="top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"></mat-spinner>
+
+
+
+</div>
+
+<div class="container-fluid" style="background-color: #4a58f8; height: 100vh; overflow-x: hidden; position: relative;">
+  <div class="row header-div" style="background-color: #4a58f8;">
+
+  </div>
+
+  <div class="row login-area">
+    <div class=" col-xl-8 col-lg-7 col-md-6" style="margin-top:85px;">
+      <app-carousel [images]="images"
+                    [autoSlide]="true"
+                    [slideInterval]="5000"></app-carousel>
+    </div>
+    <div class=" col-xl-4 col-lg-5 col-md-6 col-sm-12 col-xs-12" style="background-color:transparent;">
+      <mat-card>
+        <div class="row">
+          <div [ngClass]="isSuccess == true ? 'alert alert-success' : 'alert alert-warning'" role="alert" [hidden]="isHidden">
+            <div *ngFor="let error of errorsArray; let i = index">
+              {{error}}
+            </div>
+          </div>
+        </div>
+        <mat-card-header class="d-flex aligns-items-center justify-content-center">
+          <mat-card-title class="arplace-card-title ">Welcome back!</mat-card-title>
+          <!--<mat-card-subtitle>Start</mat-card-subtitle>-->
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row ms-1 me-1 gx-5 gy-3">
+            <form [formGroup]="loginFormGroup" class="form">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3 mt-5">
+
+                  <mat-form-field class="form-element">
+                    <input matInput placeholder="Username" formControlName="userName" appearance="fill">
+                    <mat-error *ngIf="!loginFormGroup.controls['userName'].valid && loginFormGroup.controls['userName'].touched">
+                      {{ getUserNameError() }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3 mt-3">
+
+                  <mat-form-field class="form-element">
+                    <input matInput type="password" placeholder="Password" formControlName="password" appearance="fill">
+                    <mat-error *ngIf="!loginFormGroup.controls['password'].valid && loginFormGroup.controls['password'].touched">
+                      {{ getPasswordError() }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div class="row">
+
+
+              </div>
+              <div class="row    mb-3 mt-4">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <button mat-raised-button color="primary" type="submit" class="button"
+                          [disabled]="!loginFormGroup.valid"
+                          (click)="signIn();">
+                    <mat-icon class="mr-2">login</mat-icon>
+                    <span>Login</span>
+                  </button>
+                </div>
+
+              </div>
+              <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">               
+                <button type="button" class="btn btn-success float-end mt-3" routerLink="/user-sign-up">Already haven't an account register here!</button>
+              </div>
+            </form>
+            <!--<form [formGroup]="loginFormGroup" class="mt-5">
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3">
+              <label for="nickname" class="form-label arplace-regular-text">nickname/email</label>
+
+              <span class="form-control-icon"><img class="                                    " [src]="nicknameSrc" /></span>
+              <input type="text"
+                     placeholder="nickname/email"
+                     class="form-control form-control-lg"
+                     id="nickname"
+                     formControlName="nickname"
+                     (focus)="focusNickname()" (focusout)="focusOutNickname()" />
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  mb-3">
+              <label for="password" class="form-label arplace-regular-text">password</label>-->
+            <!--<span class="fa fa-lock form-control-icon"></span>-->
+            <!--<div class="row">
+                <div class="form-group">
+                  <span class="form-control-icon"><img class="" [src]="passwordSrc" /></span>
+                  <span class="form-control-icon-suffix" style="background-color:red;"><img class="" [src]="isViewPassword === false ? this._environment.assets + 'images/login/view.svg' : this._environment.assets + 'images/login/view-active.svg'" (click)="showHidePassword()" /></span>
+                  <input [type]="isViewPassword ? 'text' : 'password'"
+                         placeholder="password"
+                         class="form-control form-control-lg"
+                         id="password"
+                         formControlName="password"
+                         (focus)="focusPassword()" (focusout)="focusOutPassword()" />
+
+                </div>
+              </div>
+            </div>
+            <div class="row gx-5 gy-3">-->
+            <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12  mb-3">-->
+            <!--<div>
+              <button type="button" class="btn btn-arplace btn-stretch btn-lg btn-xl" (click)="signIn()">sign in</button>
+            </div>-->
+            <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12  mb-3 ">
+              <button type="button" class="btn btn-success float-end" routerLink="/user-sign-up">create account</button>
+            </div>-->
+            <!--</div>
+            <div class="row gx-5 gy-3 mt-2">-->
+            <!--color="primary"-->
+            <!--<label class="form-label col-form-label-lg ms-2">
+              <input type="checkbox" formControlName="rememberMe" class="ps-3"/>  remember me
+            </label>-->
+            <!--<div class="form-check" style="margin-left:24px;">
+                <input class="form-check-input me-3 arplace-regular-text" type="checkbox" value="" id="rememberMe" name="rememberMe"
+                       formControlName="rememberMe">
+                <label class="form-check-label arplace-regular-text" for="flexCheckDefault">
+                  remember me
+                </label>
+              </div>
+            </div>
+
+            <div class="row gx-5 gy-3 mt-2">
+              <div>-->
+            <!--<button type="button" class="btn btn-outline-info btn-stretch btn-lg"><i class="fa-brands fa-google"></i> google</button>-->
+            <!--<button type="button" class="btn btn-outline-info btn-stretch btn-lg"><img [src]="this._environment.assets + 'images/login/google.PNG'" height="20" /> google</button>
+
+                </div>
+              </div>
+              <div class="row gx-5 gy-3 mt-2">
+                <div>
+                  <button type="button" class="btn btn-outline-info btn-stretch btn-lg"><img [src]="this._environment.assets + 'images/login/meta.PNG'" height="20" /> meta</button>
+                </div>
+              </div>
+              <div class="row gx-5 gy-3 mt-2">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <label style="font-size:12px;cursor:pointer;" routerLink="/user-sign-up" class="arplace-regular-text">create account</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <label style="font-size: 12px; color: #19B5F8;cursor:pointer;" class="forgot-password arplace-regular-text">forgot password</label>
+                </div>
+              </div>
+
+            </form>-->
+          </div><!--//row-->
+
+        </mat-card-content>
+        <mat-card-actions>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!--<div class="row mt-2 ms-2">ffffef+12-+  -1+--48------------------------------------------------------------------------------------------------------------------------------------feffffgddddddddddddddddddddddddddddddddddddsfefgdddddddddddddddddddddddddddddddddddddddddddddddddde
+  <a><img src="assets/images/logo/arplace-logo-with-text.png" height="30" /></a>
+</div>-->
+<!--<div class="row" style="background-color: #1B2026;height:300px;position:relative;">
+</div>
+<div *ngIf="_loaderService.isLoading | async" class="loader-container">-->
+<!--<mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+<!--<mat-spinner style="top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"></mat-spinner>
+</div>-->
+<!----bs-gutter-x:0px-->
